@@ -207,7 +207,7 @@ impl XmppServerStream {
                 })) if name.as_slice() == "stream" && ns.as_slice() == ns::STREAMS => {
                     println!("In: Stream end");
                     handler.close_stream();
-                    break;
+                    return;
                 }
                Ok(event) => {
                     match builder.push_event(event) {
@@ -224,7 +224,6 @@ impl XmppServerStream {
                     e.col, e.msg),
             };}
         }
-        println!("we close");
     }
 
 }

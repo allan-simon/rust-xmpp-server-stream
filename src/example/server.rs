@@ -1,6 +1,5 @@
 extern crate xmpp;
 use xmpp::XmppServerListener;
-use xmpp::XmppServerStream;
 
 fn main() {
 
