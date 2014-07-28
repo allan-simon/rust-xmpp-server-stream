@@ -17,6 +17,14 @@ pub struct XmppServerHandler {
 ///
 ///
 impl XmppServerHandler {
+
+    /// start XMPP stream from server side
+    ///
+    /// to be called after we've received <stream:stream> from client
+    /// as defined in RFC3920
+    /// http://xmpp.org/rfcs/rfc3920.html#streams
+    ///
+    /// domain is the domain served by this connection
     pub fn start_stream(&mut self, domain: &str) -> IoResult<()> {
         let start = format!(
             "<?xml version='1.0'?>\n\
