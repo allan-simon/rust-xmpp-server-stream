@@ -35,6 +35,29 @@ impl XmppServerHandler {
         self.send(start)
     }
 
+    /// advertize the security features provided by the server
+    ///
+    /// must be send right after the server has sent its own
+    /// <stream:stream> (without waiting for client answer)
+    /// and BEFORE non-security features are advertized, as define
+    /// in RFC3920 section 4.6
+    pub fn advertize_security_features(&mut self) -> IoResult<()> {
+
+        // TODO the list of SASL mechanism provided should be extensible
+        // rather than hardcoded
+        let features = format!(
+            "<stream:features>\
+                <mechanisms xmlns='{sasl}'>\
+                    <mechanism>PLAIN</mechanism>\
+                </mechanisms>\
+            </stream:features>",
+            sasl= ns::FEATURE_SASL
+        );
+
+        self.send(features)
+    }
+
+
     pub fn close_stream(&mut self) -> IoResult<()> {
         self.send("</stream:stream>")
     }

@@ -63,6 +63,7 @@ impl XmppServerStream {
                             builder.set_default_ns(ns::JABBER_CLIENT);
                             builder.define_prefix(prefix.as_slice(), ns::STREAMS);
                             handler.start_stream("localhost".as_slice());
+                            handler.advertize_security_features();
                         },
                         None => ()
                     }
