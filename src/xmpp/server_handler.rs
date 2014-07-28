@@ -29,11 +29,11 @@ impl XmppServerHandler {
         let start = format!(
             "<?xml version='1.0'?>\n\
             <stream:stream \
-                xmlns:stream='{}'
+                xmlns:stream='{}' \
                 xmlns='{}' \
                 version='1.0' \
                 from='{}'\
-                id='{}'
+                id='{}' \
             >",
             ns::STREAMS,
             ns::JABBER_CLIENT,
