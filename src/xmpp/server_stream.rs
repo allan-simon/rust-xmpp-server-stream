@@ -51,11 +51,14 @@ impl XmppServerStream {
             let handler = &mut self.handler;
 
             for event in self.parser { match event {
+
+                // handle <stream:stream> from client
                 Ok(xml::StartTag(xml::StartTag {
                     name: ref name,
                     ns: Some(ref ns),
                     prefix: ref prefix, ..
                 })) if name.as_slice() == "stream" && ns.as_slice() == ns::STREAMS => {
+
                     println!("In: Stream start");
                     match *prefix {
                         Some(ref prefix) => {
@@ -68,6 +71,8 @@ impl XmppServerStream {
                         None => ()
                     }
                 },
+
+                // handle </stream:stream> from client
                 Ok(xml::EndTag(xml::EndTag {
                     name: ref name,
                     ns: Some(ref ns), ..
@@ -76,6 +81,7 @@ impl XmppServerStream {
                     handler.close_stream();
                     return;
                 }
+
                Ok(event) => {
                     match builder.push_event(event) {
                         Ok(Some(ref e)) => {
